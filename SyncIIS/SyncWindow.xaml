@@ -1,0 +1,34 @@
+﻿<Window x:Class="SanJoseWaterCompany.SyncIIS.SyncWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.12.0"
+        Title="IIS Synchronization Settings" Height="359" Width="424" Background="#FFF0F0F0" BorderBrush="#FFA2CCE9">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".6*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Source</Label>
+        <TextBox Name="txtSource" Grid.Row="0" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="16,10,10,10"/>
+        <Label Grid.Row="1" Grid.Column="0" Padding="15,0" VerticalContentAlignment="center" >Destination</Label>
+        <TextBox Name="txtDestination" Grid.Row="1" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="17,10,10,11" />
+        <Label Grid.Row="2" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Site</Label>
+        <TextBox Name="txtSite" Grid.Row="2" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="16,11,10,11" />
+        <Button Name="btnSynchronize" Content="Synchronize IIS" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Bottom" Width="Auto" Height="31" Padding="5" Margin="0,0,10,10" Click="btnSynchronize_Click" />
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Width="400" Height="100" HorizontalAlignment="Center" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Center"/>
+
+        <!--<Grid.Row Height="25">
+            
+            
+            </Grid.Row>-->
+
+    </Grid>
+
+</Window>

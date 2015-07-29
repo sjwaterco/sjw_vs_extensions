@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncIIS", "SyncIIS\SyncIIS.csproj", "{2C0BC05C-15BF-4C77-A438-13621D705477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncIIS_IntegrationTests", "SyncIIS\SyncIIS_IntegrationTests\SyncIIS_IntegrationTests.csproj", "{5FDA75EC-82E6-4BB1-9B93-76AF8AD3C1D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28FC60CD-2117-4606-AD7F-B833D5171DEE}"
+	ProjectSection(SolutionItems) = preProject
+		IntegrationTests.testsettings = IntegrationTests.testsettings
+		UnitTests.testsettings = UnitTests.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncIIS_UnitTests", "SyncIIS\SyncIIS_UnitTests\SyncIIS_UnitTests.csproj", "{9F28A48A-4DBB-4D2C-88EC-9BCB34E3347C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C0BC05C-15BF-4C77-A438-13621D705477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0BC05C-15BF-4C77-A438-13621D705477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0BC05C-15BF-4C77-A438-13621D705477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0BC05C-15BF-4C77-A438-13621D705477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDA75EC-82E6-4BB1-9B93-76AF8AD3C1D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDA75EC-82E6-4BB1-9B93-76AF8AD3C1D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDA75EC-82E6-4BB1-9B93-76AF8AD3C1D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDA75EC-82E6-4BB1-9B93-76AF8AD3C1D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F28A48A-4DBB-4D2C-88EC-9BCB34E3347C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F28A48A-4DBB-4D2C-88EC-9BCB34E3347C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F28A48A-4DBB-4D2C-88EC-9BCB34E3347C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F28A48A-4DBB-4D2C-88EC-9BCB34E3347C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
