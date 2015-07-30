@@ -125,6 +125,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeployConfiguration.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -138,6 +139,7 @@
     <Compile Include="SyncWindow.xaml.cs">
       <DependentUpon>SyncWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WebDeploy.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

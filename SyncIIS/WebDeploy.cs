@@ -1,41 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SanJoseWaterCompany.SyncIIS
+﻿namespace SanJoseWaterCompany.SyncIIS
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    public delegate void OutputTextHandler(object sender, string dataReceived);
+    
     class WebDeploy
     {
-        public static void Deploy(DeployConfiguration config)
+        public event OutputTextHandler OutputGenerated;
+
+        public void Deploy(DeployConfiguration config)
         {
             var verb = "-verb:sync";
             var source = "-source:appHostConfig=\"{0}\";computername={1}";
             var destination = "-dest:appHostConfig=\"{0};computername={1}\"";
 
-            source = string.Format(source, config.Site, config.Source);
+            source = string.Format(source, config.Site, config.Source, config);
 
             foreach(var dest in config.Target)
             {
                 RunProcess(
                     verb, 
                     source, 
-                    string.Format(destination, config.Site, dest));
+                    string.Format(destination, config.Site, dest), 
+                    config);
             }
 
         }
 
-        private static void RunProcess(
+        private void RunProcess(
             string verb, 
             string source, 
-            string destination)
+            string destination,
+            DeployConfiguration config)
         {
-            var cmdPath =
-                System.Environment.GetEnvironmentVariable("ProgramFiles") +
-                @"IIS\Microsoft Web Deploy V3\msdeploy.exe";
+            var cmdPath = @"c:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe";
             var arguments = "{0} {1} {2}";
+            var timeout = 10000;
 
             var proc = new Process();
 
@@ -43,23 +49,64 @@ namespace SanJoseWaterCompany.SyncIIS
             proc.StartInfo.Arguments = string.Format(arguments, verb, source, destination);
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardInput = true;
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.Domain = config.Domain;
+            proc.StartInfo.UserName = config.Username;
+            proc.StartInfo.Password = config.Password;
             proc.EnableRaisingEvents = true;
             proc.StartInfo.CreateNoWindow = true;
 
-            proc.ErrorDataReceived += proc_DataReceived;
-            proc.OutputDataReceived += proc_DataReceived;
+            using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
+            using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+            {
+                proc.OutputDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        outputWaitHandle.Set();
+                    }
+                    else
+                    {
+                        OutputGenerated(sender, e.Data);
+                    }
+                };
+                proc.ErrorDataReceived += (sender, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        errorWaitHandle.Set();
+                    }
+                    else
+                    {
+                        OutputGenerated(sender, e.Data);
+                    }
+                }; 
+                
+                proc.Start();
 
-            proc.Start();
+                proc.BeginErrorReadLine();
+                proc.BeginOutputReadLine();
 
-            proc.BeginErrorReadLine();
-            proc.BeginOutputReadLine();
+                if (proc.WaitForExit(timeout) &&
+                    outputWaitHandle.WaitOne(timeout) &&
+                    errorWaitHandle.WaitOne(timeout))
+                {
+                    OutputGenerated(this, "Process Completed.");
+                }
+                else
+                {
+                    OutputGenerated(this, "Process Timed Out.");
+                }
+            }
 
-            proc.WaitForExit();
+            
         }
 
-        private static void proc_DataReceived(object sender, DataReceivedEventArgs e)
+        private void proc_DataReceived(object sender, string data)
         {
-            throw new NotImplementedException();
+            if (OutputGenerated != null) { OutputGenerated(sender, data); }
+            
         }
     }
 }
