@@ -3,7 +3,11 @@
   <Metadata>
     <Identity Id="a74f763c-9598-4209-901b-d7e3b65c2a43" Version="1.0" Language="en-US" Publisher="San Jose Water Company" />
     <DisplayName>SyncIIS</DisplayName>
-    <Description>Synchronize Remote IIS Installations</Description>
+    <Description xml:space="preserve">Synchronize Remote IIS Installations with Microsoft WebDeploy</Description>
+    <License>MIT.txt</License>
+    <Icon>ms32x32.png</Icon>
+    <PreviewImage>Microsoft-icon.png</PreviewImage>
+    <Tags>IIS, sync, webdeploy</Tags>
   </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />

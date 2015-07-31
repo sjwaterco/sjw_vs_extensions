@@ -8,6 +8,10 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell.Settings;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SanJoseWaterCompany.SyncIIS
 {
@@ -80,21 +84,34 @@ namespace SanJoseWaterCompany.SyncIIS
             // Show a Message Box to prove we were here
             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
             Guid clsid = Guid.Empty;
-            int result;
-            SyncWindow window = new SyncWindow();
+            DeployConfiguration config = new DeployConfiguration();
+            SettingsManager settingsManager = new ShellSettingsManager(ServiceProvider.GlobalProvider);
+            WritableSettingsStore userSettingsStore = settingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
+
+            if (!userSettingsStore.CollectionExists("SyncIIS"))
+            {
+                userSettingsStore.CreateCollection("SyncIIS");
+            }
+
+            config.Domain = userSettingsStore.GetString("SyncIIS", "Domain", "");
+            config.SetSecurePassword(userSettingsStore.GetString("SyncIIS", "Password", ""));
+            config.Site = userSettingsStore.GetString("SyncIIS", "Site", "");
+            config.Source = userSettingsStore.GetString("SyncIIS", "Source", "");
+            config.Target = userSettingsStore.GetString("SyncIIS", "Target", "").Split(new string[] { "," },
+                StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim()).ToList<string>();
+            config.Username = userSettingsStore.GetString("SyncIIS", "Username", "");
+
+            SyncWindow window = new SyncWindow(config);
             window.ShowDialog();
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-                       0,
-                       ref clsid,
-                       "SyncIIS",
-                       string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-                       string.Empty,
-                       0,
-                       OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-                       OLEMSGICON.OLEMSGICON_INFO,
-                       0,        // false
-                       out result));
+
+            var settings = window.Configuration;
+            
+            userSettingsStore.SetString("SyncIIS", "Domain", settings.Domain);
+            userSettingsStore.SetString("SyncIIS", "Password", settings.GetUnsecurePassword());
+            userSettingsStore.SetString("SyncIIS", "Site", settings.Site);
+            userSettingsStore.SetString("SyncIIS", "Source", settings.Source);
+            userSettingsStore.SetString("SyncIIS", "Target", string.Join(",", settings.Target.ToArray()));
+            userSettingsStore.SetString("SyncIIS", "Username", settings.Username);
         }
 
     }

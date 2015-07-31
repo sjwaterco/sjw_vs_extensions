@@ -11,24 +11,24 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width=".6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Source</Label>
-        <TextBox Name="txtSource" Grid.Row="0" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="16,10,10,10"/>
+        <TextBox Name="txtSource" Grid.Row="0" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="center" Margin="10, 0 10, 0"/>
         <Label Grid.Row="1" Grid.Column="0" Padding="15,0" VerticalContentAlignment="center" >Destination</Label>
-        <TextBox Name="txtDestination" Grid.Row="1" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="17,10,10,11" />
+        <TextBox Name="txtDestination" Grid.Row="1" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="center" Margin="10, 0 10, 0" />
         <Label Grid.Row="2" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Site</Label>
-        <TextBox Name="txtSite" Grid.Row="2" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="16,11,10,11" />
+        <TextBox Name="txtSite" Grid.Row="2" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="center" Margin="10, 0 10, 0" />
         <Label Grid.Row="3" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Username</Label>
-        <TextBox Name="txtUsername" Grid.Row="3" Grid.Column="1" Height="25" TextWrapping="Wrap" Margin="16,11,10,11" />
+        <TextBox Name="txtUsername" Grid.Row="3" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="center" Margin="10, 0 10, 0" />
         <Label Grid.Row="4" Grid.Column="0" Padding="15,0" VerticalContentAlignment="Center">Password</Label>
-        <PasswordBox Name="txtPassword" Grid.Row="4" Grid.Column="1" Height="25" Margin="16,11,10,11" />
-        <Button Name="btnSynchronize" Content="Synchronize IIS" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Bottom" Width="Auto" Height="31" Padding="5" Margin="0,0,10,10" Click="btnSynchronize_Click" />
-        <TextBox Name="txtOutput" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Width="400" Height="100" HorizontalAlignment="Center" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center"/>
+        <PasswordBox Name="txtPassword" Grid.Row="4" Grid.Column="1" Height="22" VerticalAlignment="center" Margin="10, 0 10, 0" />
+        <Button Name="btnSynchronize" Content="Synchronize IIS" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Bottom" Width="Auto" Height="31" Padding="5" Margin="0,0,10,0" Click="btnSynchronize_Click" />
+        <TextBox Name="txtOutput" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" TextChanged="txtOutput_TextChanged" Width="400" Height="150" HorizontalAlignment="Center" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center"/>
 
         <!--<Grid.Row Height="25">
             
